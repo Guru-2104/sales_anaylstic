@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Sales Analytics</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #1e1b4b,
+                    #312e81
+                );
+
+        }
+
+
+        .login-container {
+
+            width: 400px;
+
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 20px 50px
+                rgba(0, 0, 0, 0.30);
+
+        }
+
+
+        .logo {
+
+            text-align: center;
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+            color: #111827;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .logo span {
+
+            color: #6366f1;
+
+        }
+
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #64748b;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            color: #334155;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 9px;
+
+            font-size: 15px;
+
+            outline: none;
+
+        }
+
+
+        input:focus {
+
+            border-color: #6366f1;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(99, 102, 241, 0.12);
+
+        }
+
+
+        button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4f46e5,
+                    #7c3aed
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(79, 70, 229, 0.35);
+
+        }
+
+
+        .message {
+
+            background: #fee2e2;
+
+            color: #b91c1c;
+
+            padding: 10px;
+
+            border-radius: 8px;
+
+            margin-bottom: 18px;
+
+            text-align: center;
+
+            font-size: 14px;
+
+        }
+
+
+        .login-icon {
+
+            text-align: center;
+
+            font-size: 45px;
+
+            margin-bottom: 10px;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="login-container">
+
+
+    <div class="login-icon">
+        📊
+    </div>
+
+
+    <div class="logo">
+
+        Sales <span>Analytics</span>
+
+    </div>
+
+
+    <div class="subtitle">
+
+        Sign in to access your dashboard
+
+    </div>
+
+
+    {% for message in messages %}
+
+        <div class="message">
+
+            {{ message }}
+
+        </div>
+
+    {% endfor %}
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <div class="form-group">
+
+            <label>
+                Username
+            </label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter username"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                required
+            >
+
+        </div>
+
+
+        <button type="submit">
+
+            Login
+
+        </button>
+
+    </form>
+
+
+</div>
+
+
+</body>
+
+</html>

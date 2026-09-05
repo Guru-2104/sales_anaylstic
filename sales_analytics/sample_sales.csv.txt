@@ -1,0 +1,31 @@
+order_id,order_date,customer_name,product_name,category,region,quantity,sales_amount,profit
+ORD001,2026-01-05,Rahul,Wireless Mouse,Electronics,Chennai,2,1200,300
+ORD002,2026-01-08,Arun,Keyboard,Electronics,Coimbatore,1,1500,400
+ORD003,2026-01-12,Priya,Office Chair,Furniture,Madurai,2,10000,2500
+ORD004,2026-01-18,Karthik,Laptop Stand,Accessories,Trichy,3,4500,1200
+ORD005,2026-01-25,Divya,USB Cable,Accessories,Chennai,5,1250,500
+ORD006,2026-02-03,Ravi,Monitor,Electronics,Salem,1,12000,3000
+ORD007,2026-02-10,Meena,Office Chair,Furniture,Coimbatore,1,5000,1200
+ORD008,2026-02-15,Suresh,Keyboard,Electronics,Chennai,2,3000,800
+ORD009,2026-02-22,Anitha,Wireless Mouse,Electronics,Madurai,4,2400,600
+ORD010,2026-03-02,Vijay,Laptop Stand,Accessories,Trichy,2,3000,800
+ORD011,2026-03-09,Keerthi,Monitor,Electronics,Chennai,2,24000,6000
+ORD012,2026-03-15,Manoj,USB Cable,Accessories,Salem,10,2500,1000
+ORD013,2026-03-20,Harish,Office Chair,Furniture,Chennai,2,10000,2500
+ORD014,2026-04-05,Lakshmi,Keyboard,Electronics,Coimbatore,3,4500,1200
+ORD015,2026-04-12,Sanjay,Wireless Mouse,Electronics,Trichy,5,3000,750
+ORD016,2026-04-20,Naveen,Monitor,Electronics,Madurai,1,12000,3000
+ORD017,2026-05-03,Priya,Laptop Stand,Accessories,Chennai,4,6000,1600
+ORD018,2026-05-11,Rahul,USB Cable,Accessories,Coimbatore,8,2000,800
+ORD019,2026-05-18,Divya,Office Chair,Furniture,Salem,2,10000,2500
+ORD020,2026-05-25,Arun,Keyboard,Electronics,Trichy,2,3000,800
+ORD021,2026-06-04,Karthik,Monitor,Electronics,Chennai,2,24000,6000
+ORD022,2026-06-12,Meena,Wireless Mouse,Electronics,Coimbatore,3,1800,450
+ORD023,2026-06-20,Ravi,Laptop Stand,Accessories,Madurai,2,3000,800
+ORD024,2026-07-05,Anitha,Office Chair,Furniture,Chennai,1,5000,1200
+ORD025,2026-07-15,Suresh,USB Cable,Accessories,Salem,6,1500,600
+ORD026,2026-07-22,Vijay,Keyboard,Electronics,Coimbatore,2,3000,800
+ORD027,2026-08-02,Keerthi,Monitor,Electronics,Trichy,1,12000,3000
+ORD028,2026-08-10,Manoj,Wireless Mouse,Electronics,Chennai,4,2400,600
+ORD029,2026-08-18,Harish,Laptop Stand,Accessories,Madurai,3,4500,1200
+ORD030,2026-08-25,Lakshmi,Office Chair,Furniture,Coimbatore,2,10000,2500

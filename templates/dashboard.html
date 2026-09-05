@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sales Analytics</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+
+        /* SIDEBAR */
+
+        .sidebar {
+
+            position: fixed;
+            left: 0;
+            top: 0;
+
+            width: 240px;
+            height: 100vh;
+
+            background: linear-gradient(
+                180deg,
+                #111827,
+                #1e1b4b
+            );
+
+            padding: 30px 18px;
+
+            color: white;
+        }
+
+
+        .brand {
+
+            text-align: center;
+            margin-bottom: 40px;
+
+        }
+
+
+        .brand-icon {
+
+            font-size: 38px;
+            margin-bottom: 8px;
+
+        }
+
+
+        .brand h2 {
+
+            font-size: 21px;
+
+        }
+
+
+        .brand span {
+
+            color: #818cf8;
+
+        }
+
+
+        .nav-button {
+
+            display: block;
+
+            text-decoration: none;
+
+            color: #cbd5e1;
+
+            padding: 14px 18px;
+
+            margin-bottom: 10px;
+
+            border-radius: 10px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .nav-button:hover {
+
+            background: #4f46e5;
+
+            color: white;
+
+        }
+
+
+        .active {
+
+            background: #4f46e5;
+
+            color: white;
+
+        }
+
+
+        /* MAIN */
+
+        .main {
+
+            margin-left: 240px;
+
+            padding: 30px;
+
+        }
+
+
+        /* HEADER */
+
+        .header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .header h1 {
+
+            font-size: 28px;
+
+            color: #0f172a;
+
+        }
+
+
+        .header p {
+
+            color: #64748b;
+
+            margin-top: 6px;
+
+        }
+
+
+        .user-area {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+        }
+
+
+        .username {
+
+            font-weight: bold;
+
+            color: #334155;
+
+        }
+
+
+        .logout {
+
+            text-decoration: none;
+
+            background: #ef4444;
+
+            color: white;
+
+            padding: 10px 17px;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+
+        }
+
+
+        .logout:hover {
+
+            background: #dc2626;
+
+            transform: translateY(-2px);
+
+        }
+
+
+        /* FILTER */
+
+        .filter-box {
+
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 15px;
+
+            box-shadow:
+
+                0 5px 20px
+
+                rgba(15, 23, 42, 0.07);
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .filter-title {
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            margin-bottom: 18px;
+
+            color: #334155;
+
+        }
+
+
+        .filters {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            align-items: center;
+
+        }
+
+
+        select,
+
+        input[type="date"] {
+
+            padding: 11px 13px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 8px;
+
+            background: white;
+
+            outline: none;
+
+            color: #334155;
+
+        }
+
+
+        select:focus,
+
+        input[type="date"]:focus {
+
+            border-color: #6366f1;
+
+            box-shadow:
+
+                0 0 0 3px
+
+                rgba(99, 102, 241, 0.1);
+
+        }
+
+
+        .filter-btn {
+
+            padding: 11px 20px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #4f46e5;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .filter-btn:hover {
+
+            background: #4338ca;
+
+        }
+
+
+        .reset {
+
+            text-decoration: none;
+
+            padding: 11px 18px;
+
+            border-radius: 8px;
+
+            background: #e2e8f0;
+
+            color: #334155;
+
+            font-weight: bold;
+
+        }
+
+
+        /* CARDS */
+
+        .cards {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 20px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .card {
+
+            padding: 24px;
+
+            border-radius: 16px;
+
+            color: white;
+
+            position: relative;
+
+            overflow: hidden;
+
+            box-shadow:
+
+                0 10px 25px
+
+                rgba(15, 23, 42, 0.12);
+
+            transition: 0.3s;
+
+        }
+
+
+        .card:hover {
+
+            transform: translateY(-5px);
+
+        }
+
+
+        .card:nth-child(1) {
+
+            background:
+
+                linear-gradient(
+
+                    135deg,
+
+                    #2563eb,
+
+                    #4f46e5
+
+                );
+
+        }
+
+
+        .card:nth-child(2) {
+
+            background:
+
+                linear-gradient(
+
+                    135deg,
+
+                    #059669,
+
+                    #10b981
+
+                );
+
+        }
+
+
+        .card:nth-child(3) {
+
+            background:
+
+                linear-gradient(
+
+                    135deg,
+
+                    #7c3aed,
+
+                    #9333ea
+
+                );
+
+        }
+
+
+        .card:nth-child(4) {
+
+            background:
+
+                linear-gradient(
+
+                    135deg,
+
+                    #ea580c,
+
+                    #f97316
+
+                );
+
+        }
+
+
+        .card-title {
+
+            font-size: 14px;
+
+            opacity: 0.85;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .card-value {
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* CHART GRID */
+
+        .chart-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 25px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .chart-box {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 16px;
+
+            box-shadow:
+
+                0 5px 20px
+
+                rgba(15, 23, 42, 0.07);
+
+        }
+
+
+        .chart-box h2 {
+
+            font-size: 18px;
+
+            margin-bottom: 20px;
+
+            color: #334155;
+
+        }
+
+
+        .chart-container {
+
+            position: relative;
+
+            height: 300px;
+
+        }
+
+
+        /* TABLE */
+
+        .table-box {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 16px;
+
+            box-shadow:
+
+                0 5px 20px
+
+                rgba(15, 23, 42, 0.07);
+
+            margin-bottom: 30px;
+
+            overflow-x: auto;
+
+        }
+
+
+        .table-box h2 {
+
+            margin-bottom: 20px;
+
+            font-size: 19px;
+
+            color: #334155;
+
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+        }
+
+
+        th {
+
+            background: #eef2ff;
+
+            color: #3730a3;
+
+            padding: 13px;
+
+            text-align: left;
+
+        }
+
+
+        td {
+
+            padding: 13px;
+
+            border-bottom: 1px solid #e2e8f0;
+
+            color: #475569;
+
+        }
+
+
+        tr:hover td {
+
+            background: #f8fafc;
+
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1000px) {
+
+            .cards {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+            .chart-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+
+                width: 100%;
+
+                height: auto;
+
+                position: relative;
+
+            }
+
+
+            .main {
+
+                margin-left: 0;
+
+            }
+
+
+            .cards {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 15px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            📊
+        </div>
+
+        <h2>
+            Sales <span>Analytics</span>
+        </h2>
+
+    </div>
+
+
+    <a href="{% url 'dashboard' %}"
+       class="nav-button active">
+
+        📊 &nbsp; Dashboard
+
+    </a>
+
+
+    <a href="{% url 'upload_csv' %}"
+       class="nav-button">
+
+        📁 &nbsp; Upload CSV
+
+    </a>
+
+</div>
+
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div>
+
+            <h1>
+                Sales Dashboard
+            </h1>
+
+            <p>
+                Monitor your sales performance
+            </p>
+
+        </div>
+
+
+        <div class="user-area">
+
+            <span class="username">
+
+                👤 {{ request.user.username }}
+
+            </span>
+
+
+            <a href="{% url 'logout' %}"
+               class="logout">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- FILTER -->
+
+    <div class="filter-box">
+
+        <div class="filter-title">
+
+            🔎 Filter Sales Data
+
+        </div>
+
+
+        <form method="GET">
+
+            <div class="filters">
+
+
+                <select name="city">
+
+                    <option value="">
+                        All Cities
+                    </option>
+
+
+                    {% for city in cities %}
+
+                        <option
+                            value="{{ city }}"
+                            {% if selected_city == city %}
+                                selected
+                            {% endif %}
+                        >
+
+                            {{ city }}
+
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+
+
+                <select name="product">
+
+                    <option value="">
+                        All Products
+                    </option>
+
+
+                    {% for product in products %}
+
+                        <option
+                            value="{{ product }}"
+                            {% if selected_product == product %}
+                                selected
+                            {% endif %}
+                        >
+
+                            {{ product }}
+
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+
+
+                <input
+                    type="date"
+                    name="start_date"
+                    value="{{ start_date }}"
+                >
+
+
+                <input
+                    type="date"
+                    name="end_date"
+                    value="{{ end_date }}"
+                >
+
+
+                <button
+                    type="submit"
+                    class="filter-btn"
+                >
+
+                    Apply Filter
+
+                </button>
+
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="reset"
+                >
+
+                    Reset
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+
+    <!-- CARDS -->
+
+    <div class="cards">
+
+
+        <div class="card">
+
+            <div class="card-title">
+                TOTAL SALES
+            </div>
+
+            <div class="card-value">
+
+                ₹{{ total_sales }}
+
+            </div>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="card-title">
+                TOTAL PROFIT
+            </div>
+
+            <div class="card-value">
+
+                ₹{{ total_profit }}
+
+            </div>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="card-title">
+                TOTAL ORDERS
+            </div>
+
+            <div class="card-value">
+
+                {{ total_orders }}
+
+            </div>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="card-title">
+                TOTAL QUANTITY
+            </div>
+
+            <div class="card-value">
+
+                {{ total_quantity }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- CHARTS -->
+
+    <div class="chart-grid">
+
+
+        <div class="chart-box">
+
+            <h2>
+                📍 Sales by City
+            </h2>
+
+            <div class="chart-container">
+
+                <canvas id="cityChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="chart-box">
+
+            <h2>
+                📦 Top Products
+            </h2>
+
+            <div class="chart-container">
+
+                <canvas id="productChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="chart-box">
+
+            <h2>
+                👥 Best Customers
+            </h2>
+
+            <div class="chart-container">
+
+                <canvas id="customerChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- CITY TABLE -->
+
+    <div class="table-box">
+
+        <h2>
+            📍 Sales by City
+        </h2>
+
+
+        <table>
+
+            <tr>
+
+                <th>
+                    City
+                </th>
+
+                <th>
+                    Total Sales
+                </th>
+
+            </tr>
+
+
+            {% for city in city_sales %}
+
+            <tr>
+
+                <td>
+                    {{ city.region }}
+                </td>
+
+                <td>
+                    ₹{{ city.total|floatformat:2 }}
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td colspan="2">
+                    No data available
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+
+
+    <!-- PRODUCT TABLE -->
+
+    <div class="table-box">
+
+        <h2>
+            📦 Top Products
+        </h2>
+
+
+        <table>
+
+            <tr>
+
+                <th>
+                    Product
+                </th>
+
+                <th>
+                    Unit Price
+                </th>
+
+                <th>
+                    Total Sales
+                </th>
+
+            </tr>
+
+
+            {% for product in product_sales %}
+
+            <tr>
+
+                <td>
+                    {{ product.product_name }}
+                </td>
+
+                <td>
+                    ₹{{ product.unit_price|floatformat:2 }}
+                </td>
+
+                <td>
+                    ₹{{ product.total|floatformat:2 }}
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td colspan="3">
+                    No data available
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+
+
+    <!-- CUSTOMER TABLE -->
+
+    <div class="table-box">
+
+        <h2>
+            👥 Best Customers
+        </h2>
+
+
+        <table>
+
+            <tr>
+
+                <th>
+                    Customer
+                </th>
+
+                <th>
+                    Total Sales
+                </th>
+
+            </tr>
+
+
+            {% for customer in customer_sales %}
+
+            <tr>
+
+                <td>
+                    {{ customer.customer_name }}
+                </td>
+
+                <td>
+                    ₹{{ customer.total|floatformat:2 }}
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td colspan="2">
+                    No data available
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* CITY CHART */
+
+const cityLabels = [
+
+    {% for city in city_sales %}
+
+        "{{ city.region }}",
+
+    {% endfor %}
+
+];
+
+
+const cityValues = [
+
+    {% for city in city_sales %}
+
+        {{ city.total }},
+
+    {% endfor %}
+
+];
+
+
+new Chart(
+
+    document.getElementById("cityChart"),
+
+    {
+
+        type: "bar",
+
+        data: {
+
+            labels: cityLabels,
+
+            datasets: [{
+
+                label: "Sales",
+
+                data: cityValues,
+
+                backgroundColor:
+                    "#4f46e5",
+
+                borderRadius: 7
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                legend: {
+
+                    display: false
+
+                }
+
+            }
+
+        }
+
+    }
+
+);
+
+
+
+/* PRODUCT CHART */
+
+const productLabels = [
+
+    {% for product in product_sales %}
+
+        "{{ product.product_name }}",
+
+    {% endfor %}
+
+];
+
+
+const productValues = [
+
+    {% for product in product_sales %}
+
+        {{ product.total }},
+
+    {% endfor %}
+
+];
+
+
+new Chart(
+
+    document.getElementById("productChart"),
+
+    {
+
+        type: "bar",
+
+        data: {
+
+            labels: productLabels,
+
+            datasets: [{
+
+                label: "Sales",
+
+                data: productValues,
+
+                backgroundColor:
+                    "#7c3aed",
+
+                borderRadius: 7
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                legend: {
+
+                    display: false
+
+                }
+
+            }
+
+        }
+
+    }
+
+);
+
+
+
+/* CUSTOMER CHART */
+
+const customerLabels = [
+
+    {% for customer in customer_sales %}
+
+        "{{ customer.customer_name }}",
+
+    {% endfor %}
+
+];
+
+
+const customerValues = [
+
+    {% for customer in customer_sales %}
+
+        {{ customer.total }},
+
+    {% endfor %}
+
+];
+
+
+new Chart(
+
+    document.getElementById("customerChart"),
+
+    {
+
+        type: "bar",
+
+        data: {
+
+            labels: customerLabels,
+
+            datasets: [{
+
+                label: "Sales",
+
+                data: customerValues,
+
+                backgroundColor:
+                    "#059669",
+
+                borderRadius: 7
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                legend: {
+
+                    display: false
+
+                }
+
+            }
+
+        }
+
+    }
+
+);
+
+
+</script>
+
+
+</body>
+
+</html>
